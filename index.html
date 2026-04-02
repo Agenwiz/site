@@ -14,9 +14,10 @@
       --fg-muted: #555;
       --bg: #fafafa;
       --accent: #4f46e5;
+      --accent2: #7c3aed;
       --accent-light: #e0e7ff;
       --card-bg: #fff;
-      --radius: 12px;
+      --radius: 16px;
     }
 
     body {
@@ -25,6 +26,7 @@
       background: var(--bg);
       line-height: 1.6;
       -webkit-font-smoothing: antialiased;
+      overflow-x: hidden;
     }
 
     a { color: var(--accent); text-decoration: none; }
@@ -54,11 +56,27 @@
       border-radius: 8px;
     }
     nav ul { list-style: none; display: flex; gap: 2rem; }
-    nav ul a { color: var(--fg-muted); font-size: 0.95rem; }
+    nav ul a { color: var(--fg-muted); font-size: 0.95rem; transition: color 0.2s; }
     nav ul a:hover { color: var(--accent); text-decoration: none; }
 
     /* ---- Hero ---- */
+    .hero-wrap {
+      position: relative;
+      overflow: hidden;
+    }
+    .hero-wrap::before {
+      content: "";
+      position: absolute;
+      top: -40%;
+      left: 50%;
+      transform: translateX(-50%);
+      width: 140%;
+      height: 100%;
+      background: radial-gradient(ellipse at center, rgba(79,70,229,0.08) 0%, rgba(124,58,237,0.04) 40%, transparent 70%);
+      pointer-events: none;
+    }
     .hero {
+      position: relative;
       max-width: 1100px;
       margin: 0 auto;
       padding: 6rem 1.5rem 4rem;
@@ -71,6 +89,10 @@
       letter-spacing: -0.03em;
       max-width: 720px;
       margin: 0 auto 1.25rem;
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      -webkit-background-clip: text;
+      -webkit-text-fill-color: transparent;
+      background-clip: text;
     }
     .hero p {
       font-size: 1.15rem;
@@ -82,16 +104,22 @@
     .btn {
       display: inline-block;
       padding: 0.8rem 1.8rem;
-      border-radius: 8px;
+      border-radius: 10px;
       font-size: 1rem;
       font-weight: 600;
       cursor: pointer;
       border: none;
-      transition: opacity 0.2s;
+      transition: transform 0.2s, box-shadow 0.2s;
     }
-    .btn:hover { opacity: 0.88; text-decoration: none; }
-    .btn-primary { background: var(--accent); color: #fff; }
+    .btn:hover { transform: translateY(-2px); text-decoration: none; }
+    .btn-primary {
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
+      color: #fff;
+      box-shadow: 0 4px 20px rgba(79,70,229,0.3);
+    }
+    .btn-primary:hover { box-shadow: 0 6px 28px rgba(79,70,229,0.4); }
     .btn-secondary { background: var(--accent-light); color: var(--accent); }
+    .btn-secondary:hover { box-shadow: 0 4px 16px rgba(79,70,229,0.15); }
 
     /* ---- Section base ---- */
     section {
@@ -124,17 +152,23 @@
       border: 1px solid #e5e7eb;
       border-radius: var(--radius);
       padding: 2rem;
+      transition: transform 0.25s, box-shadow 0.25s;
+    }
+    .feature-card:hover {
+      transform: translateY(-4px);
+      box-shadow: 0 12px 32px rgba(79,70,229,0.1);
+      border-color: rgba(79,70,229,0.2);
     }
     .feature-icon {
-      width: 44px;
-      height: 44px;
-      border-radius: 10px;
-      background: var(--accent-light);
+      width: 48px;
+      height: 48px;
+      border-radius: 12px;
+      background: linear-gradient(135deg, var(--accent-light), #f0e6ff);
       color: var(--accent);
       display: flex;
       align-items: center;
       justify-content: center;
-      font-size: 1.3rem;
+      font-size: 1.4rem;
       margin-bottom: 1rem;
     }
     .feature-card h3 {
@@ -153,35 +187,64 @@
       grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
       gap: 2rem;
       text-align: center;
+      position: relative;
     }
     .step-num {
-      width: 40px;
-      height: 40px;
+      width: 44px;
+      height: 44px;
       border-radius: 50%;
-      background: var(--accent);
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
       color: #fff;
       font-weight: 700;
       display: inline-flex;
       align-items: center;
       justify-content: center;
       margin-bottom: 1rem;
+      box-shadow: 0 4px 16px rgba(79,70,229,0.25);
     }
     .steps h3 { font-size: 1.05rem; font-weight: 600; margin-bottom: 0.4rem; }
     .steps p { color: var(--fg-muted); font-size: 0.93rem; }
 
     /* ---- CTA banner ---- */
     .cta-banner {
-      background: var(--accent);
+      background: linear-gradient(135deg, var(--accent), var(--accent2));
       color: #fff;
       border-radius: var(--radius);
       text-align: center;
       padding: 3.5rem 2rem;
       max-width: 1100px;
       margin: 2rem auto 4rem;
+      position: relative;
+      overflow: hidden;
     }
-    .cta-banner h2 { color: #fff; margin-bottom: 0.6rem; }
-    .cta-banner p { opacity: 0.85; margin-bottom: 1.5rem; }
-    .cta-banner .btn { background: #fff; color: var(--accent); }
+    .cta-banner::before {
+      content: "";
+      position: absolute;
+      top: -50%;
+      right: -20%;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .cta-banner::after {
+      content: "";
+      position: absolute;
+      bottom: -30%;
+      left: -10%;
+      width: 300px;
+      height: 300px;
+      background: radial-gradient(circle, rgba(255,255,255,0.08) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .cta-banner h2 { color: #fff; margin-bottom: 0.6rem; position: relative; }
+    .cta-banner p { opacity: 0.9; margin-bottom: 1.5rem; position: relative; }
+    .cta-banner .btn {
+      background: #fff;
+      color: var(--accent);
+      position: relative;
+      box-shadow: 0 4px 20px rgba(0,0,0,0.15);
+    }
 
     /* ---- Footer ---- */
     footer {
@@ -197,7 +260,19 @@
       font-size: 0.88rem;
       color: var(--fg-muted);
     }
-    footer a { color: var(--fg-muted); }
+    footer a { color: var(--fg-muted); transition: color 0.2s; }
+    footer a:hover { color: var(--accent); }
+
+    /* ---- Fade-in animation ---- */
+    .fade-in {
+      opacity: 0;
+      transform: translateY(24px);
+      transition: opacity 0.6s ease-out, transform 0.6s ease-out;
+    }
+    .fade-in.visible {
+      opacity: 1;
+      transform: translateY(0);
+    }
 
     /* ---- Responsive ---- */
     @media (max-width: 600px) {
@@ -222,6 +297,7 @@
   </nav>
 
   <!-- Hero -->
+  <div class="hero-wrap">
   <section class="hero">
     <h1>Autonomous AI Agents That Handle Your Online Work</h1>
     <p>Agenwiz gives you managed, always-on AI agents that work through your messaging apps, browse the web, and complete tasks on your behalf - so you can focus on what matters.</p>
@@ -230,9 +306,10 @@
       <a class="btn btn-secondary" href="#features">Learn More</a>
     </div>
   </section>
+  </div>
 
   <!-- Features -->
-  <section id="features">
+  <section id="features" class="fade-in">
     <h2>What Your Agent Can Do</h2>
     <p class="section-sub">Each agent is a fully managed instance with persistent memory, secure credentials, and real browser capabilities.</p>
     <div class="features">
@@ -277,7 +354,7 @@
   </section>
 
   <!-- How it works -->
-  <section id="how">
+  <section id="how" class="fade-in">
     <h2>How It Works</h2>
     <p class="section-sub">Get a personal AI agent running in minutes, no infrastructure to manage.</p>
     <div class="steps">
@@ -300,7 +377,7 @@
   </section>
 
   <!-- CTA Banner -->
-  <div class="cta-banner" id="contact">
+  <div class="cta-banner fade-in" id="contact">
     <h2>Ready to Put an Agent to Work?</h2>
     <p>We're onboarding early users now. Get in touch to reserve your spot.</p>
     <a class="btn" href="mailto:hello@agenwiz.com">Get in Touch</a>
@@ -315,5 +392,11 @@
     </span>
   </footer>
 
+  <script>
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+    }, { threshold: 0.15 });
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+  </script>
 </body>
 </html>
